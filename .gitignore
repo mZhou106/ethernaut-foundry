@@ -1,0 +1,7 @@
+# Foundry build output
+out/
+cache/
+broadcast/
+
+# Env
+.env

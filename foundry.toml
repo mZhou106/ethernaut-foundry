@@ -1,0 +1,10 @@
+[profile.default]
+src = "src"
+test = "test"
+out = "out"
+libs = ["lib"]
+optimizer = true
+optimizer_runs = 1000
+# getOldFactory() in test/utils/Utils.sol reads compiled artifacts from ./out
+fs_permissions = [{ access = "read", path = "./" }]
+evm_version = "prague"
