@@ -50,10 +50,4 @@ contract TestUniqueNFT is Test, Utils {
         assertEq(instance.balanceOf(player), 0);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
     }
-
-    /// @notice Test the solution for the level.
-    /// @dev TODO: upstream has no solution yet. Remove the skip and implement the exploit.
-    function testSolve() public {
-        vm.skip(true);
-    }
 }

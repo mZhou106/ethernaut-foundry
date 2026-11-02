@@ -6,7 +6,6 @@ import {Utils} from "test/utils/Utils.sol";
 
 import {Force} from "src/levels/Force.sol";
 import {ForceFactory} from "src/levels/ForceFactory.sol";
-import {ForceAttack} from "src/attacks/ForceAttack.sol";
 import {Level} from "src/levels/base/Level.sol";
 import {Ethernaut} from "src/Ethernaut.sol";
 
@@ -49,15 +48,5 @@ contract TestForce is Test, Utils {
     function testInit() public {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        ForceAttack attacker = new ForceAttack{value: 1}();
-        attacker.attack(payable(address(instance)));
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
     }
 }

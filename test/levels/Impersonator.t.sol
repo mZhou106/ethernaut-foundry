@@ -56,46 +56,4 @@ contract TestImpersonator is Test, Utils {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
     }
-
-    function testTrySameSignatureOpen() public {
-        vm.startPrank(player);
-        ECLocker locker0 = instance.lockers(0);
-        vm.expectRevert();
-        locker0.open(v, r, s);
-    }
-
-    function testTrySameSignatureChangeController() public {
-        vm.startPrank(player);
-        ECLocker locker0 = instance.lockers(0);
-        vm.expectRevert();
-        locker0.changeController(v, r, s, player);
-    }
-
-    function testTryRandomSignatureChangeController() public {
-        vm.startPrank(player);
-        ECLocker locker0 = instance.lockers(0);
-        vm.expectRevert();
-        locker0.changeController(28, r, bytes32(uint256(s) + 1), player);
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-        // https://eips.ethereum.org/EIPS/eip-2
-        // flip the s value from s to secp256k1n - s, flip the v value (27 -> 28, 28 -> 27), and the resulting signature would still be valid.
-        uint256 secp256k1_n = 115792089237316195423570985008687907852837564279074904382605163141518161494337;
-        bytes32 tricked_s = bytes32(secp256k1_n - uint256(s));
-     
-        vm.expectEmit();
-        emit ECLocker.ControllerChanged(address(0), block.timestamp);
-
-        ECLocker locker0 = instance.lockers(0);
-        locker0.changeController(28, r, tricked_s, address(0));
-
-        vm.expectEmit();
-        emit ECLocker.Open(address(0), block.timestamp);
-        locker0.open(0, 0, 0);
-        
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
-    }
 }

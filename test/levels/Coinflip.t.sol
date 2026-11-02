@@ -6,7 +6,6 @@ import {Utils} from "test/utils/Utils.sol";
 
 import {CoinFlip} from "src/levels/CoinFlip.sol";
 import {CoinFlipFactory} from "src/levels/CoinFlipFactory.sol";
-import {CoinFlipAttack} from "src/attacks/CoinFlipAttack.sol";
 import {Level} from "src/levels/base/Level.sol";
 import {Ethernaut} from "src/Ethernaut.sol";
 
@@ -49,19 +48,5 @@ contract TestCoinflip is Test, Utils {
     function testInit() public {
         vm.prank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-        CoinFlipAttack attacker = new CoinFlipAttack();
-
-        // To weaponize this attack you'd need to pole for a new block to be mined, as the contract only allows one flip per block.
-        for (uint256 i = 0; i < 10; i++) {
-            vm.roll(block.number + 1);
-            attacker.attack(address(instance));
-        }
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
     }
 }

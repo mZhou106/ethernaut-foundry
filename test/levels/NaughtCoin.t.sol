@@ -6,7 +6,6 @@ import {Utils} from "test/utils/Utils.sol";
 
 import {NaughtCoin} from "src/levels/NaughtCoin.sol";
 import {NaughtCoinFactory} from "src/levels/NaughtCoinFactory.sol";
-import {NaughtCoinAttack} from "src/attacks/NaughtCoinAttack.sol";
 import {Level} from "src/levels/base/Level.sol";
 import {Ethernaut} from "src/Ethernaut.sol";
 
@@ -49,16 +48,5 @@ contract TestNaughtCoin is Test, Utils {
     function testInit() public {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        NaughtCoinAttack attacker = new NaughtCoinAttack();
-        instance.approve(address(attacker), instance.balanceOf(player));
-        attacker.attack(address(instance), player);
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
     }
 }

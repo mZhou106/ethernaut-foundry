@@ -6,7 +6,6 @@ import {Utils} from "test/utils/Utils.sol";
 
 import {DexTwo, SwappableTokenTwo} from "src/levels/DexTwo.sol";
 import {DexTwoFactory} from "src/levels/DexTwoFactory.sol";
-import {DexTwoAttackToken} from "src/attacks/DexTwoAttack.sol";
 import {Level} from "src/levels/base/Level.sol";
 import {Ethernaut} from "src/Ethernaut.sol";
 
@@ -49,19 +48,5 @@ contract TestDexTwo is Test, Utils {
     function testInit() public {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        SwappableTokenTwo token1 = SwappableTokenTwo(instance.token1());
-        SwappableTokenTwo token2 = SwappableTokenTwo(instance.token2());
-
-        DexTwoAttackToken attack = new DexTwoAttackToken();
-        instance.swap(address(attack), address(token1), 1);
-        instance.swap(address(attack), address(token2), 1);
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
     }
 }

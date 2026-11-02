@@ -52,13 +52,4 @@ contract TestToken is Test, Utils {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
     }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        instance.transfer(address(instance), 21);
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
-    }
 }

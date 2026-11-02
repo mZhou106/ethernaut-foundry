@@ -6,7 +6,6 @@ import {Utils} from "test/utils/Utils.sol";
 
 import {Denial} from "src/levels/Denial.sol";
 import {DenialFactory} from "src/levels/DenialFactory.sol";
-import {DenialAttack} from "src/attacks/DenialAttack.sol";
 import {Level} from "src/levels/base/Level.sol";
 import {Ethernaut} from "src/Ethernaut.sol";
 
@@ -49,15 +48,5 @@ contract TestDenial is Test, Utils {
     function testInit() public {
         vm.prank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        DenialAttack denialAttack = new DenialAttack();
-        instance.setWithdrawPartner(address(denialAttack));
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
     }
 }

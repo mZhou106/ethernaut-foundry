@@ -6,7 +6,6 @@ import {Utils} from "test/utils/Utils.sol";
 
 import {GoodSamaritan} from "src/levels/GoodSamaritan.sol";
 import {GoodSamaritanFactory} from "src/levels/GoodSamaritanFactory.sol";
-import {GoodSamaritanAttack} from "src/attacks/GoodSamaritanAttack.sol";
 import {Level} from "src/levels/base/Level.sol";
 import {Ethernaut} from "src/Ethernaut.sol";
 
@@ -49,17 +48,5 @@ contract TestGoodSamaritan is Test, Utils {
     function testInit() public {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        instance.requestDonation();
-
-        GoodSamaritanAttack attacker = new GoodSamaritanAttack(address(instance));
-        attacker.attack();
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
     }
 }

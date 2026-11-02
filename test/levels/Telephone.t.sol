@@ -6,7 +6,6 @@ import {Utils} from "test/utils/Utils.sol";
 
 import {Telephone} from "src/levels/Telephone.sol";
 import {TelephoneFactory} from "src/levels/TelephoneFactory.sol";
-import {TelephoneAttack} from "src/attacks/TelephoneAttack.sol";
 import {Level} from "src/levels/base/Level.sol";
 import {Ethernaut} from "src/Ethernaut.sol";
 
@@ -49,15 +48,5 @@ contract TestTelephone is Test, Utils {
     function testInit() public {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        TelephoneAttack attacker = new TelephoneAttack();
-        attacker.attack(address(instance), player);
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
     }
 }

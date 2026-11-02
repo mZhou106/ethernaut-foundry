@@ -5,9 +5,10 @@ import "forge-std/Test.sol";
 import {Utils} from "test/utils/Utils.sol";
 
 import {DummyFactory} from "src/levels/DummyFactory.sol";
-import {ReentranceAttack, Reentrance} from "src/attacks/ReentranceAttack.sol";
 import {Level} from "src/levels/base/Level.sol";
 import {Ethernaut} from "src/Ethernaut.sol";
+
+interface Reentrance {}
 
 contract TestReentrance is Test, Utils {
     Ethernaut ethernaut;
@@ -48,16 +49,5 @@ contract TestReentrance is Test, Utils {
     function testInit() public {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        ReentranceAttack attacker = new ReentranceAttack{value: player.balance}(payable(address(instance)));
-        attacker.attack_1_causeOverflow();
-        attacker.attack_2_deplete();
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
     }
 }

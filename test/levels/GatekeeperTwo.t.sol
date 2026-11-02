@@ -6,7 +6,6 @@ import {Utils} from "test/utils/Utils.sol";
 
 import {GatekeeperTwo} from "src/levels/GatekeeperTwo.sol";
 import {GatekeeperTwoFactory} from "src/levels/GatekeeperTwoFactory.sol";
-import {GatekeeperTwoAttack} from "src/attacks/GatekeeperTwoAttack.sol";
 import {Level} from "src/levels/base/Level.sol";
 import {Ethernaut} from "src/Ethernaut.sol";
 
@@ -49,14 +48,5 @@ contract TestGatekeeperTwo is Test, Utils {
     function testInit() public {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.prank(player, player);
-        GatekeeperTwoAttack attacker = new GatekeeperTwoAttack(address(instance));
-
-        vm.startPrank(player);
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
     }
 }

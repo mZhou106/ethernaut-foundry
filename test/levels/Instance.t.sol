@@ -49,15 +49,4 @@ contract TestInstance is Test, Utils {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
     }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        string memory pw = instance.password();
-        instance.authenticate(pw);
-        assertTrue(instance.getCleared());
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
-    }
 }

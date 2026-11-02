@@ -9,7 +9,7 @@ import {Statistics} from "src/metrics/Statistics.sol";
 import {ProxyStats} from "src/proxy/ProxyStats.sol";
 
 import {FallbackFactory} from "src/levels/FallbackFactory.sol";
-import {Manufactured} from "src/attacks/Manufactured.sol";
+import {Manufactured} from "test/utils/Manufactured.sol";
 
 import {DummyFactory} from "src/levels/DummyFactory.sol";
 import {Dummy} from "src/levels/Dummy.sol";

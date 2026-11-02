@@ -49,14 +49,4 @@ contract TestVault is Test, Utils {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
     }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        bytes32 password = vm.load(address(instance), bytes32(uint256(1)));
-        instance.unlock(password);
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
-    }
 }

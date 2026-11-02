@@ -6,7 +6,6 @@ import {Utils} from "test/utils/Utils.sol";
 
 import {Elevator} from "src/levels/Elevator.sol";
 import {ElevatorFactory} from "src/levels/ElevatorFactory.sol";
-import {ElevatorAttack} from "src/attacks/ElevatorAttack.sol";
 import {Level} from "src/levels/base/Level.sol";
 import {Ethernaut} from "src/Ethernaut.sol";
 
@@ -49,15 +48,5 @@ contract TestElevator is Test, Utils {
     function testInit() public {
         vm.startPrank(player);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
-    }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player);
-
-        ElevatorAttack attack = new ElevatorAttack();
-        attack.attack(address(instance));
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
     }
 }

@@ -1,5 +1,7 @@
 # 迁移计划与验证记录
 
+> 本文件记录 `master` 分支的完整迁移过程。`practice` 分支在其基础上删除了 `src/attacks/` 与所有 `testSolve`，仅保留 `setUp` + `testInit`；因此下文步骤 6/8 中的关卡测试数量仅适用于带参考解的分支。
+
 目标：把 Ethernaut CTF 从上游仓库迁移为独立 Foundry 工程，全部关卡可在本地通过 `forge test` 复现通关。
 
 约定：`UPSTREAM=/home/mzhou/git-repos/ethernaut/ethernaut`，`PROJECT=/home/mzhou/git-repos/ethernaut/ethernaut-foundry`。

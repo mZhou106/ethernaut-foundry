@@ -55,29 +55,4 @@ contract TestEllipticToken is Test, Utils {
         assertEq(instance.owner(), BOB);
         assertFalse(submitLevelInstance(ethernaut, address(instance)));
     }
-
-    /// @notice Test the solution for the level.
-    function testSolve() public {
-        vm.startPrank(player, player);
-
-        // Spoofed signature generated with EllipticToken.py script
-        bytes32 r = 0xd3433fe216c991674d4c7e2186460a412b91c976c44569433a0985dffc099b02;
-        bytes32 s = 0x16417451991575e0cdfc4aaff865deb0843abf95f606aed775fda4e40e047e14;
-        uint8 v = 27;
-        uint256 amount = uint256(0x59e540931475e32e9ace9d434a5667767f569cd3c8316ea28398398bac06df55);
-        bytes memory aliceSpoofedSignature = abi.encodePacked(r, s, v);
-
-        // Permit acceptance signature
-        bytes32 permitAcceptHash = keccak256(abi.encodePacked(ALICE, player, amount));
-        (v, r, s) = vm.sign(playerKey, permitAcceptHash);
-        bytes memory playerPermitAcceptanceSignature = abi.encodePacked(r, s, v);
-
-        // Call permit to approve the transfer
-        instance.permit(amount, player, aliceSpoofedSignature, playerPermitAcceptanceSignature);
-
-        // Drain the funds
-        instance.transferFrom(ALICE, player, INITIAL_AMOUNT);
-
-        assertTrue(submitLevelInstance(ethernaut, address(instance)));
-    }
 }
